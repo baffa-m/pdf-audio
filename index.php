@@ -58,10 +58,50 @@
       <p>UPLOAD YOUR PDF DOCUMENT TO READ OUT</p>
 
       <form action="convert.php" method="post" enctype="multipart/form-data">
-        <input type="file" class="txt form-control" name="img" required="">
-        <input type="submit" name="convert" value="Convert to Audio" class="form-control btn btn-success">
+        <input type="file" id="pdfInput" class="txt form-control" name="img" required="">
+        <span class="text-danger" id="fileError"></span>
+        <input type="submit" id="submitButton" name="convert" value="Convert to Audio" class="form-control btn btn-success">
       </form>
     </div>
+
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        
+        // Validate PDF file input in real-time
+        $('#pdfInput').on('change', function() {
+          var file = this.files[0];
+          var fileType = file.type;
+          var fileSize = file.size;
+
+          // Reset error message
+          $('#fileError').text('');
+
+          // Check if the file is a PDF
+          if (fileType !== 'application/pdf') {
+            $('#fileError').text('Please upload a valid PDF file.');
+            this.value = ''; // Clear the input
+          }
+          
+
+          // Set file size limit (e.g., 5MB)
+          var maxSize = 5 * 1024 * 1024; // 5MB in bytes
+          if (fileSize > maxSize) {
+            $('#fileError').text('File size should not exceed 5MB.');
+            this.value = ''; // Clear the input
+          }
+        });
+
+        // Final validation before form submission
+        $('#pdfForm').on('submit', function(e) {
+          var file = $('#pdfInput')[0].files[0];
+          if (!file) {
+            e.preventDefault();
+            $('#fileError').text('Please upload a PDF file.');
+          }
+        });
+      });
+    </script>
 
     <script src="script.js"></script>
   </body>

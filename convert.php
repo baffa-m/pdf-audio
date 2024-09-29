@@ -124,7 +124,7 @@ $a->decodePDF();
       .button-group {
         display: flex;
         justify-content: center;
-        gap: 20px; /* Spacing between buttons */
+        gap: 10px; /* Spacing between buttons */
       }
 
       h1 {
@@ -193,7 +193,11 @@ $a->decodePDF();
         <select class="form-control" onchange="if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) { window.speechSynthesis.cancel(); speak(document.querySelector('.txt').value); }">
         </select>
       </form>
+
+      <a href="index.php">Upload a new document</a>
+
     </div>
+
 
     <script src="script.js"></script>
   </body>
